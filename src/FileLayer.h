@@ -10,6 +10,7 @@
 #ifndef FILE_LAYER_H
 #define FILE_LAYER_H
 
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -65,6 +66,7 @@ namespace dwl
 			// private functions
 			#ifdef _WIN32
 				FileListing* getFileListing(WIN32_FIND_DATA data);
+				void recursiveDelDir(string path);
 			#endif // _WIN32
 		
 		public:
@@ -72,6 +74,7 @@ namespace dwl
 			~FileLayer(); // TODO: don't forget to close any open files here
 
 			// path/directory stuff
+			
 			string getCWD(); 
 			string getApplicationPath();
 			string getCurrentPath();
@@ -82,6 +85,12 @@ namespace dwl
 			vector<FileListing>* getDirectoryListing();
 
 			// file i/o
+			
+			void createFile(string path);
+			void createDirectory(string path);
+			void deleteFile(string path); 
+			void deleteDirectory(string path); // NOTE: recursive
+			
 			/*vector<string> readFile(string fileName);
 			void prepareFileWrite(string fileName, int mode);
 			void fileWrite(string content);
