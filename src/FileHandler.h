@@ -28,8 +28,10 @@ namespace dwl
 {
 
 	// class list
+	class FileListing;
 	class FileHandler;
 	class FileHandlerPathNotFound;
+	class FileHandlerNotDirectory;
 
 	class FileHandlerPathNotFound : public exception
 	{
@@ -37,13 +39,22 @@ namespace dwl
 			virtual const char* what() const throw() { return "The path wasn't found."; }
 	};
 
-	struct FileListing
+	class FileHandlerNotDirectory : public exception
 	{
-		string FullName; // full name, includes extension (if file)
-		string Name;
-		string Path;
-		string Extension;
-		bool isDirectory;
+		public:
+			virtual const char* what() const throw() { return "Path is not a directory."; }
+	};
+	
+	class FileListing
+	{
+		public:
+			string FullName; // full name, includes extension (if file)
+			string Name;
+			string Path;
+			string Extension;
+			bool isDirectory;
+
+			FileListing() {}
 	};
 	
 	class FileHandler
@@ -65,8 +76,10 @@ namespace dwl
 			string getApplicationPath();
 			string getCurrentPath();
 			void setCurrentPath(string path); // NOTE: only sets virtual path
-			//bool isPathValid(); // TODO: overload
-			vector<FileListing* >* getDirectoryListing();
+			bool isDirectory(string path);
+			bool isFile(string path);
+			bool exists(string path);
+			vector<FileListing>* getDirectoryListing();
 
 			// file i/o
 			/*vector<string> readFile(string fileName);
