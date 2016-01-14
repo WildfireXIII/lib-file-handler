@@ -1,7 +1,7 @@
 //*************************************************************
 //  File: FileHandler.h
 //  Date created: 1/13/2016
-//  Date edited: 1/13/2016
+//  Date edited: 1/14/2016
 //  Author: Nathan Martindale
 //  Copyright © 2016 Digital Warrior Labs
 //  Description: Cross-platform file handling library
@@ -13,6 +13,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <exception>
 
 #ifdef _WIN32
 	#include <windows.h>
@@ -25,6 +26,17 @@ using namespace std;
 
 namespace dwl
 {
+
+	// class list
+	class FileHandler;
+	class FileHandlerPathNotFound;
+
+	class FileHandlerPathNotFound : public exception
+	{
+		public:
+			virtual const char* what() const throw() { return "The path wasn't found."; }
+	};
+
 	struct FileListing
 	{
 		string FullName; // full name, includes extension (if file)
@@ -38,6 +50,11 @@ namespace dwl
 	{
 		private:
 			string m_currentPath;
+
+			// private functions
+			#ifdef _WIN32
+				FileListing* getFileListing(WIN32_FIND_DATA data);
+			#endif // _WIN32
 		
 		public:
 			FileHandler();
@@ -46,12 +63,13 @@ namespace dwl
 			// path/directory stuff
 			string getCWD(); 
 			string getApplicationPath();
-			/*string getCurrentPath();
+			string getCurrentPath();
 			void setCurrentPath(string path); // NOTE: only sets virtual path
-			vector<FileListing> getDirectoryListing();
+			//bool isPathValid(); // TODO: overload
+			vector<FileListing* >* getDirectoryListing();
 
 			// file i/o
-			vector<string> readFile(string fileName);
+			/*vector<string> readFile(string fileName);
 			void prepareFileWrite(string fileName, int mode);
 			void fileWrite(string content);
 			void finishWrite();
