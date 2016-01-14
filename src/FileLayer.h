@@ -1,5 +1,5 @@
 //*************************************************************
-//  File: FileHandler.h
+//  File: FileLayer.h
 //  Date created: 1/13/2016
 //  Date edited: 1/14/2016
 //  Author: Nathan Martindale
@@ -7,8 +7,8 @@
 //  Description: Cross-platform file handling library
 //*************************************************************
 
-#ifndef FILE_HANDLER_H
-#define FILE_HANDLER_H
+#ifndef FILE_LAYER_H
+#define FILE_LAYER_H
 
 #include <iostream>
 #include <string>
@@ -29,17 +29,17 @@ namespace dwl
 
 	// class list
 	class FileListing;
-	class FileHandler;
-	class FileHandlerPathNotFound;
-	class FileHandlerNotDirectory;
+	class FileLayer;
+	class FileLayerPathNotFound;
+	class FileLayerNotDirectory;
 
-	class FileHandlerPathNotFound : public exception
+	class FileLayerPathNotFound : public exception
 	{
 		public:
 			virtual const char* what() const throw() { return "The path wasn't found."; }
 	};
 
-	class FileHandlerNotDirectory : public exception
+	class FileLayerNotDirectory : public exception
 	{
 		public:
 			virtual const char* what() const throw() { return "Path is not a directory."; }
@@ -57,7 +57,7 @@ namespace dwl
 			FileListing() {}
 	};
 	
-	class FileHandler
+	class FileLayer
 	{
 		private:
 			string m_currentPath;
@@ -68,8 +68,8 @@ namespace dwl
 			#endif // _WIN32
 		
 		public:
-			FileHandler();
-			~FileHandler(); // TODO: don't forget to close any open files here
+			FileLayer();
+			~FileLayer(); // TODO: don't forget to close any open files here
 
 			// path/directory stuff
 			string getCWD(); 
@@ -90,4 +90,4 @@ namespace dwl
 	};
 }
 
-#endif // FILE_HANDLER_H
+#endif // FILE_LAYER_H
