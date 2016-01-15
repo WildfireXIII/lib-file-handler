@@ -1,7 +1,7 @@
 //*************************************************************
 //  File: FileLayer.h
 //  Date created: 1/13/2016
-//  Date edited: 1/14/2016
+//  Date edited: 1/15/2016
 //  Author: Nathan Martindale
 //  Copyright © 2016 Digital Warrior Labs
 //  Description: Cross-platform file handling library
@@ -24,6 +24,8 @@
 #endif // linux
 
 using namespace std;
+
+// TODO: error numbering system, latest error variable (don't use exceptions)
 
 namespace dwl
 {
@@ -54,14 +56,13 @@ namespace dwl
 			string Path;
 			string Extension;
 			bool isDirectory;
-
-			FileListing() {}
 	};
 	
 	class FileLayer
 	{
 		private:
 			string m_currentPath;
+			ofstream m_openFile; // only opened by prepareFileWrite
 
 			// private functions
 			#ifdef _WIN32
@@ -72,6 +73,8 @@ namespace dwl
 		public:
 			FileLayer();
 			~FileLayer(); // TODO: don't forget to close any open files here
+
+			ofstream* getOFStream();
 
 			// path/directory stuff
 			
@@ -91,11 +94,11 @@ namespace dwl
 			void deleteFile(string path); 
 			void deleteDirectory(string path); // NOTE: recursive
 			
-			/*vector<string> readFile(string fileName);
-			void prepareFileWrite(string fileName, int mode);
+			vector<string>* readFile(string fileName);
+			void prepareFileWrite(string fileName, bool append);
 			void fileWrite(string content);
 			void finishWrite();
-			void quickWrite(string content, string fileName, int mode); */
+			void quickWrite(string content, string fileName, bool append);
 	};
 }
 
