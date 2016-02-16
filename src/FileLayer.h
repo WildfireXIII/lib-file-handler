@@ -1,7 +1,7 @@
 //*************************************************************
 //  File: FileLayer.h
 //  Date created: 1/13/2016
-//  Date edited: 1/19/2016
+//  Date edited: 2/15/2016
 //  Author: Nathan Martindale
 //  Copyright © 2016 Digital Warrior Labs
 //  Description: Cross-platform file handling library
@@ -78,7 +78,7 @@ namespace dwl
 
 			// path/directory stuff
 			
-			void setCWD(); // just sets actual cwd to whatever current path is
+			void outputCWD(); // writes current path to a file _FILELAYER_CWD.dat (for use by parent shell scripts etc
 			string getCWD(); 
 			string getApplicationPath();
 			string getCurrentPath();
