@@ -78,7 +78,6 @@ namespace dwl
 
 			// path/directory stuff
 			
-			void outputCWD(); // writes current path to a file _FILELAYER_CWD.dat (for use by parent shell scripts etc
 			void outputCWD(string path); // writes current path to a file _FILELAYER_CWD.dat in a specified path (for use in parent shell scripts etc)
 			string getCWD(); 
 			string getApplicationPath();
